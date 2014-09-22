@@ -21,7 +21,10 @@ module.exports = {
   styles: {
     src: '__styles/index.less',
     dest: util.format('%s/css', dest),
-    outputName: util.format('%s.css', pkg.name)
+    outputName: util.format('%s.css', pkg.name),
+    prefixer: {
+      browsers: ['last 2 versions']
+    }
   },
   images: {
     src: '__styles/images/**/*.*',
