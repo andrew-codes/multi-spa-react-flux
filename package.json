@@ -1,0 +1,48 @@
+{
+  "name": "VersionOne.SPAs",
+  "version": "0.0.0",
+  "description": "Demo of VersionOne apps as single page apps using ReactJS and the Flux architecture.",
+  "main": "",
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "dev": "./node_modules/.bin/gulp dev",
+    "build": "./node_modules/.bin/gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Andrew Smith <andrew@WeAreSoftwareCraftsmen.com>",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "devDependencies": {
+    "gulp": "~3.8.7",
+    "gulp-connect": "~2.0.6",
+    "gulp-clean": "~0.3.1",
+    "browserify-shim": "~3.7.0",
+    "react": "~0.11.1",
+    "react-tools": "~0.11.1",
+    "gulp-react": "~1.0.0",
+    "vinyl-map": "~1.0.1",
+    "vinyl-source-stream": "~1.0.0",
+    "browserify": "~5.12.0",
+    "bluebird": "~2.3.2",
+    "mustache": "~0.8.2",
+  },
+  "jest": {
+    "unmockedModulePathPatterns": [
+      "./node_modules"
+    ],
+    "scriptPreprocessor": "./preprocessor.js"
+  },
+  "browserify-shim": {
+    "react": "React"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  }
+}
