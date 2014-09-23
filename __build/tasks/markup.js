@@ -10,11 +10,12 @@ var cssConfig = require('../config').styles;
 var mkdir = Promise.promisifyAll(require('mkdirp'));
 
 gulp.task('markup', function() {
-    return fs.readFileAsync(config.src).then(function(fileContents) {
+    return fs.readFileAsync(config.src)
+        .then(function(fileContents) {
             return fileContents.toString();
         })
         .then(function(fileContents) {
-            return config.outputApps.then(function(apps) {
+            config.outputApps.then(function(apps) {
                 apps.forEach(function(app) {
                     var view = {
                         css: util.format('../css/%s', cssConfig.outputName),
@@ -27,7 +28,6 @@ gulp.task('markup', function() {
                         .then(function(dirName) {
                             fs.writeFileAsync(util.format('%s/index.html', dirName), contents, 'utf-8');
                         });
-
                 });
             });
         });

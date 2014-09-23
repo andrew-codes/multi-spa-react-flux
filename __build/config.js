@@ -2,6 +2,8 @@
 var util = require('util');
 var pkg = require('../package.json');
 var Promise = require('bluebird');
+var fs = Promise.promisifyAll(require('fs'));
+
 var pageApps = getPageApps('./../__apps/pages');
 
 var dest = './public';
@@ -39,19 +41,19 @@ module.exports = {
         transforms: [
             ['coffeeify']
         ],
-        bundleConfigs:
-            pageApps.map(function(pageApp) {
-                return {
-                    entries: util.format('./__apps/pages/%s.js', pageApp),
-                    dest: util.format('%s/%s/js', dest, pageApp),
-                    outputName: util.format('%s.js', pageApp)
-                };
-            })
+        bundleConfigs: pageApps.map(function(pageApp) {
+            return {
+                entries: util.format('./__apps/pages/%s.js', pageApp),
+                dest: util.format('%s/%s/js', dest, pageApp),
+                outputName: util.format('%s.js', pageApp)
+            };
+        })
     }
 };
 
 function getPageApps(path) {
-    return new Promise(function(resolve){
-        resolve(['index']);
-    });
+    return fs.readdirAsync('__apps/pages')
+        .map(function(path) {
+            return path.toString().substr(0, path.length - 3);
+        });
 }
