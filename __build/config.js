@@ -32,14 +32,12 @@ module.exports = {
   },
   scripts: {
     debug: true,
+    extensions: ['.jsx', '.coffee', '.js'],
     transforms: [
-      ['reactify', {
-        'everything': true
-      }],
       ['coffeeify']
     ],
     bundleConfigs: [{
-      entries: './__apps/index.jsx',
+      entries: './__apps/index.js',
       dest: util.format('%s/js', dest),
       outputName: util.format('%s.js', pkg.name)
     }]

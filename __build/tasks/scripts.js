@@ -8,6 +8,7 @@ var handleErrors = require('../util/handleErrors');
 var source = require('vinyl-source-stream');
 var config = require('../config').scripts;
 var server = require('connect').server;
+var reactify = require('reactify');
 
 gulp.task('scripts', function(callback) {
   var bundleQueue = config.bundleConfigs.length;
@@ -20,6 +21,7 @@ gulp.task('scripts', function(callback) {
       transforms: config.transforms,
       debug: config.debug
     });
+    bundler.transform(reactify);
 
     var bundle = function() {
       bundleLogger.start(bundleConfig.outputName);
