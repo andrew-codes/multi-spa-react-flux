@@ -8,7 +8,6 @@ var Routes = Router.Routes;
 var Route = Router.Route;
 var NotFoundRoute = Router.NotFoundRoute;
 var App = require('./components/App');
-var Backlog = require('./components/Backlog');
 React.renderComponent((
   <Routes location="history">
     <Route path="/" handler={App}></Route>
