@@ -7,7 +7,7 @@ var Router = require('react-router');
 var Routes = Router.Routes;
 var Route = Router.Route;
 var NotFoundRoute = Router.NotFoundRoute;
-var App = require('./components/App');
+var App = require('./../components/App');
 React.renderComponent((
   <Routes location="history">
     <Route path="/" handler={App}></Route>

@@ -7,7 +7,6 @@ var gulp = require('gulp');
 var handleErrors = require('../util/handleErrors');
 var source = require('vinyl-source-stream');
 var config = require('../config').scripts;
-var server = require('connect').server;
 var reactify = require('reactify');
 
 gulp.task('scripts', function(callback) {
@@ -48,5 +47,5 @@ gulp.task('scripts', function(callback) {
     };
     return bundle();
   };
-  config.bundleConfigs.forEach(browserifyThis);
+  return config.bundleConfigs.map(browserifyThis);
 });

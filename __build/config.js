@@ -1,45 +1,57 @@
 'use strict';
 var util = require('util');
 var pkg = require('../package.json');
+var Promise = require('bluebird');
+var pageApps = getPageApps('./../__apps/pages');
 
 var dest = './public';
 module.exports = {
-  dest: dest,
-  browserSync: {
-    server: {
-      baseDir: [dest]
+    dest: dest,
+    browserSync: {
+        server: {
+            baseDir: [dest]
+        },
+        files: [
+            dest + "/**",
+            "!" + dest + "/**.map"
+        ]
     },
-    files: [
-      dest + "/**",
-      "!" + dest + "/**.map"
-    ]
-  },
-  markup: {
-    src: '__web/index.html',
-    dest: dest
-  },
-  styles: {
-    src: '__styles/index.less',
-    dest: util.format('%s/css', dest),
-    outputName: util.format('%s.css', pkg.name),
-    prefixer: {
-      browsers: ['last 2 versions']
+    markup: {
+        outputApps: pageApps,
+        src: '__web/index.html.mustache',
+        dest: dest
+    },
+    styles: {
+        src: '__styles/index.less',
+        dest: util.format('%s/css', dest),
+        outputName: util.format('%s.css', pkg.name),
+        prefixer: {
+            browsers: ['last 2 versions']
+        }
+    },
+    images: {
+        src: '__styles/images/**/*.*',
+        dest: util.format('%s/css', dest)
+    },
+    scripts: {
+        debug: true,
+        extensions: ['.jsx', '.coffee', '.js'],
+        transforms: [
+            ['coffeeify']
+        ],
+        bundleConfigs:
+            pageApps.map(function(pageApp) {
+                return {
+                    entries: util.format('./__apps/pages/%s.js', pageApp),
+                    dest: util.format('%s/%s/js', dest, pageApp),
+                    outputName: util.format('%s.js', pageApp)
+                };
+            })
     }
-  },
-  images: {
-    src: '__styles/images/**/*.*',
-    dest: util.format('%s/css', dest)
-  },
-  scripts: {
-    debug: true,
-    extensions: ['.jsx', '.coffee', '.js'],
-    transforms: [
-      ['coffeeify']
-    ],
-    bundleConfigs: [{
-      entries: './__apps/index.js',
-      dest: util.format('%s/js', dest),
-      outputName: util.format('%s.js', pkg.name)
-    }]
-  }
 };
+
+function getPageApps(path) {
+    return new Promise(function(resolve){
+        resolve(['index']);
+    });
+}
